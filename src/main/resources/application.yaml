@@ -3,9 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://${postgres.railway.internal}:${5432}/${railway}
-    username: ${postgres}
-    password: ${muNkccGyVPZGpinjdJENDZyoiWXWqKdR}
+    url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver
   sql:
     init:
