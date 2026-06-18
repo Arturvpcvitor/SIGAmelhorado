@@ -27,14 +27,15 @@ public class AlunoDAO {
     @PostConstruct
     private void initialize() { jdbc = new JdbcTemplate(dataSource); }
 
-    public void inserirAluno(Aluno aluno) {
-        jdbc.update("INSERT INTO aluno(nome, cpf) VALUES (?, ?)", aluno.getNome(), aluno.getCpf());
-    }
+   public void inserirAluno(Aluno aluno) {
+    String sql = "INSERT INTO aluno (id, nome, cpf, foto) VALUES (gen_random_uuid(), ?, ?, ?)";
+    jdbc.update(sql, aluno.getNome(), aluno.getCpf(), aluno.getFoto());
+}
 
     public void atualizarAluno(Aluno aluno) {
-        jdbc.update("UPDATE aluno SET nome = ?, cpf = ? WHERE id = ?::uuid",
-            aluno.getNome(), aluno.getCpf(), aluno.getId());
-    }
+    String sql = "UPDATE aluno SET nome=?, cpf=?, foto=? WHERE id=?::uuid";
+    jdbc.update(sql, aluno.getNome(), aluno.getCpf(), aluno.getFoto(), aluno.getId());
+}
 
     public void excluirAluno(String id) {
         jdbc.update("DELETE FROM aluno WHERE id = ?::uuid", id);
