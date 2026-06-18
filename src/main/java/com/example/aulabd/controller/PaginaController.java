@@ -1,5 +1,7 @@
 package com.example.aulabd.controller;
 
+import org.springframework.web.multipart.MultipartFile;
+import java.util.Base64;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,11 +62,16 @@ public class PaginaController {
         return "formaluno";
     }
 
-    @PostMapping("/aluno")
-    public String postAluno(@ModelAttribute Aluno aluno) {
-        alunoService.inserirAluno(aluno);
-        return "sucesso";
+   @PostMapping("/aluno")
+public String inserirAluno(Aluno aluno,
+        @RequestParam("fotoFile") MultipartFile fotoFile) throws Exception {
+    if (!fotoFile.isEmpty()) {
+        String base64 = Base64.getEncoder().encodeToString(fotoFile.getBytes());
+        aluno.setFoto("data:" + fotoFile.getContentType() + ";base64," + base64);
     }
+    alunoService.inserirAluno(aluno);
+    return "sucesso";
+}
 
     @GetMapping("/aluno/editar")
     public String editarForm(@RequestParam String id, Model model) {
@@ -74,14 +81,20 @@ public class PaginaController {
         return "editaraluno";
     }
 
-    @PostMapping("/aluno/atualizar")
-    public String atualizar(@RequestParam String id,
-                            @RequestParam String nome,
-                            @RequestParam String cpf) {
-        Aluno aluno = new Aluno(cpf, id, nome);
-        alunoService.atualizarAluno(aluno);
-        return "redirect:/alunos";
+  @PostMapping("/aluno/atualizar")
+public String atualizarAluno(Aluno aluno,
+        @RequestParam("fotoFile") MultipartFile fotoFile) throws Exception {
+    if (!fotoFile.isEmpty()) {
+        String base64 = Base64.getEncoder().encodeToString(fotoFile.getBytes());
+        aluno.setFoto("data:" + fotoFile.getContentType() + ";base64," + base64);
+    } else {
+        // manter foto existente
+        Aluno existente = alunoService.buscarPorIdExato(aluno.getId());
+        aluno.setFoto(existente != null ? existente.getFoto() : null);
     }
+    alunoService.atualizarAluno(aluno);
+    return "redirect:/alunos";
+}
 
     @PostMapping("/aluno/excluir")
     public String excluir(@RequestParam String id) {
