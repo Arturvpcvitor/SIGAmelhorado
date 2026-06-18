@@ -15,7 +15,7 @@ public class AlunoDAO {
     DataSource dataSource;
     JdbcTemplate jdbc;
 
-   private final RowMapper<Aluno> alunoRowMapper = (rs, rowNum) -> {
+   private final RowMapper<Aluno> alunoMapper = (rs, rowNum) -> {
     Aluno a = new Aluno();
     a.setId(rs.getString("id"));
     a.setNome(rs.getString("nome"));
