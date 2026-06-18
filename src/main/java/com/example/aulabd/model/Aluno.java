@@ -3,6 +3,11 @@ package com.example.aulabd.model;
 
 public class Aluno {
 
+    private String foto;
+
+public String getFoto() { return foto; }
+public void setFoto(String foto) { this.foto = foto; }
+    
     private String id, nome, cpf;
 
     //Construtor para a pagina do formulario
