@@ -97,6 +97,14 @@
     <div class="form-area">
         <h2 class="form-heading">Preencha os <em>dados</em></h2>
         <span class="form-subtext">* Todos os campos são obrigatórios</span>
+        <form action="/aluno" method="post" enctype="multipart/form-data">
+            <div style="margin-bottom:1.5rem;">
+    <label style="display:block;font-weight:600;margin-bottom:0.5rem;">
+        Foto do Aluno (opcional)
+    </label>
+    <input type="file" name="fotoFile" accept="image/*"
+           style="padding:0.5rem;border:1px solid #ddd;border-radius:8px;width:100%;">
+</div>
 
         <form action="#" th:action="@{/aluno}" method="post" th:object="${aluno}" id="alunoForm" novalidate>
             <div class="field-group" id="grp-nome">
