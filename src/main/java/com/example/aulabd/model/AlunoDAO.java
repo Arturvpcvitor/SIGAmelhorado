@@ -15,8 +15,14 @@ public class AlunoDAO {
     DataSource dataSource;
     JdbcTemplate jdbc;
 
-    private final RowMapper<Aluno> alunoMapper = (rs, rowNum) ->
-        new Aluno(rs.getString("cpf"), rs.getString("id"), rs.getString("nome"));
+   private final RowMapper<Aluno> alunoRowMapper = (rs, rowNum) -> {
+    Aluno a = new Aluno();
+    a.setId(rs.getString("id"));
+    a.setNome(rs.getString("nome"));
+    a.setCpf(rs.getString("cpf"));
+    a.setFoto(rs.getString("foto"));
+    return a;
+};
 
     @PostConstruct
     private void initialize() { jdbc = new JdbcTemplate(dataSource); }
