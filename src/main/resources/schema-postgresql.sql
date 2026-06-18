@@ -1,7 +1,8 @@
-CREATE TABLE IF NOT EXISTS aluno(
+CREATE TABLE IF NOT EXISTS aluno (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    nome VARCHAR(100) NOT NULL,
-    cpf  VARCHAR(11)  NOT NULL 
+    nome VARCHAR(255) NOT NULL,
+    cpf VARCHAR(11) NOT NULL,
+    foto TEXT
 );
 CREATE TABLE IF NOT EXISTS usuario(
     login VARCHAR(50) PRIMARY KEY,
