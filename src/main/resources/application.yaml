@@ -1,11 +1,13 @@
+server:
+  port: 8081
+
 spring:
   datasource:
-    url: ${postgresql://postgres:muNkccGyVPZGpinjdJENDZyoiWXWqKdR@postgres.railway.internal:5432/railway}
+    url: jdbc:postgresql://${postgres.railway.internal}:${5432}/${railway}
+    username: ${postgres}
+    password: ${muNkccGyVPZGpinjdJENDZyoiWXWqKdR}
     driver-class-name: org.postgresql.Driver
   sql:
     init:
       mode: always
       schema-locations: classpath:schema-postgresql.sql
-
-server:
-  port: 8081
