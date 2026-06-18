@@ -62,10 +62,9 @@ public class PaginaController {
         return "formaluno";
     }
 
-   @PostMapping("/aluno")
+@PostMapping("/aluno")
 public String inserirAluno(Aluno aluno,
-        @RequestParam("fotoFile") MultipartFile fotoFile) throws Exception {
-    if (!fotoFile.isEmpty()) {
+        @RequestParam(value = "fotoFile", required = false) MultipartFile fotoFile) throws Exception {
         String base64 = Base64.getEncoder().encodeToString(fotoFile.getBytes());
         aluno.setFoto("data:" + fotoFile.getContentType() + ";base64," + base64);
     }
@@ -81,9 +80,9 @@ public String inserirAluno(Aluno aluno,
         return "editaraluno";
     }
 
-  @PostMapping("/aluno/atualizar")
+ @PostMapping("/aluno/atualizar")
 public String atualizarAluno(Aluno aluno,
-        @RequestParam("fotoFile") MultipartFile fotoFile) throws Exception {
+        @RequestParam(value = "fotoFile", required = false) MultipartFile fotoFile) throws Exception {
     if (!fotoFile.isEmpty()) {
         String base64 = Base64.getEncoder().encodeToString(fotoFile.getBytes());
         aluno.setFoto("data:" + fotoFile.getContentType() + ";base64," + base64);
