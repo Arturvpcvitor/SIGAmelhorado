@@ -62,15 +62,16 @@ public class PaginaController {
         return "formaluno";
     }
 
-@PostMapping("/aluno")
-public String inserirAluno(Aluno aluno,
-        @RequestParam(value = "fotoFile", required = false) MultipartFile fotoFile) throws Exception {
-        String base64 = Base64.getEncoder().encodeToString(fotoFile.getBytes());
-        aluno.setFoto("data:" + fotoFile.getContentType() + ";base64," + base64);
+    @PostMapping("/aluno")
+    public String inserirAluno(Aluno aluno,
+            @RequestParam(value = "fotoFile", required = false) MultipartFile fotoFile) throws Exception {
+        if (fotoFile != null && !fotoFile.isEmpty()) {
+            String base64 = Base64.getEncoder().encodeToString(fotoFile.getBytes());
+            aluno.setFoto("data:" + fotoFile.getContentType() + ";base64," + base64);
+        }
+        alunoService.inserirAluno(aluno);
+        return "sucesso";
     }
-    alunoService.inserirAluno(aluno);
-    return "sucesso";
-}
 
     @GetMapping("/aluno/editar")
     public String editarForm(@RequestParam String id, Model model) {
@@ -80,20 +81,19 @@ public String inserirAluno(Aluno aluno,
         return "editaraluno";
     }
 
- @PostMapping("/aluno/atualizar")
-public String atualizarAluno(Aluno aluno,
-        @RequestParam(value = "fotoFile", required = false) MultipartFile fotoFile) throws Exception {
-    if (!fotoFile.isEmpty()) {
-        String base64 = Base64.getEncoder().encodeToString(fotoFile.getBytes());
-        aluno.setFoto("data:" + fotoFile.getContentType() + ";base64," + base64);
-    } else {
-        // manter foto existente
-        Aluno existente = alunoService.buscarPorIdExato(aluno.getId());
-        aluno.setFoto(existente != null ? existente.getFoto() : null);
+    @PostMapping("/aluno/atualizar")
+    public String atualizarAluno(Aluno aluno,
+            @RequestParam(value = "fotoFile", required = false) MultipartFile fotoFile) throws Exception {
+        if (fotoFile != null && !fotoFile.isEmpty()) {
+            String base64 = Base64.getEncoder().encodeToString(fotoFile.getBytes());
+            aluno.setFoto("data:" + fotoFile.getContentType() + ";base64," + base64);
+        } else {
+            Aluno existente = alunoService.buscarPorIdExato(aluno.getId());
+            aluno.setFoto(existente != null ? existente.getFoto() : null);
+        }
+        alunoService.atualizarAluno(aluno);
+        return "redirect:/alunos";
     }
-    alunoService.atualizarAluno(aluno);
-    return "redirect:/alunos";
-}
 
     @PostMapping("/aluno/excluir")
     public String excluir(@RequestParam String id) {
