@@ -1,1 +1,55 @@
 
+<!-- registrar.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>SIGA - Registrar</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: #f5f0e8; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .login-container { background: white; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 100%; max-width: 400px; border: 1px solid rgba(14,14,14,0.08); }
+        .logo { font-size: 1.2rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 2rem; text-align: center; color: #0e0e0e; }
+        .logo span { color: #b8860b; }
+        h1 { font-size: 1.5rem; font-weight: 400; margin-bottom: 0.5rem; text-align: center; }
+        h1 em { font-style: italic; color: #b8860b; }
+        .sub { text-align: center; color: #6b6456; font-size: 0.85rem; margin-bottom: 2rem; }
+        .field { margin-bottom: 1.2rem; }
+        label { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #6b6456; margin-bottom: 0.4rem; }
+        input { width: 100%; padding: 0.8rem 1rem; border: 1px solid rgba(14,14,14,0.12); border-radius: 4px; font-size: 1rem; background: #faf8f5; transition: border-color 0.2s; outline: none; }
+        input:focus { border-color: #b8860b; }
+        button { width: 100%; padding: 0.9rem; background: #0e0e0e; color: white; border: none; border-radius: 4px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+        button:hover { background: #b8860b; }
+        .erro { background: #f8e8e8; color: #8b1a1a; padding: 0.7rem; border-radius: 4px; font-size: 0.85rem; margin-bottom: 1.2rem; text-align: center; }
+        .link { display: block; text-align: center; margin-top: 1.2rem; color: #6b6456; font-size: 0.85rem; text-decoration: none; transition: color 0.2s; }
+        .link:hover { color: #0e0e0e; }
+        .senha-hint { font-size: 0.75rem; color: #6b6456; margin-top: 0.3rem; display: block; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">FatecRL <span>·</span> SIGA</div>
+        <h1>Criar <em>conta</em></h1>
+        <p class="sub">Registre-se para acessar o sistema</p>
+        
+        <div th:if="${erro}" class="erro" th:text="${erro}"></div>
+        
+        <form action="/registrar" method="post">
+            <div class="field">
+                <label for="login">Usuário</label>
+                <input type="text" id="login" name="login" placeholder="Escolha um login" required>
+            </div>
+            <div class="field">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" placeholder="Digite uma senha" required>
+            </div>
+            <div class="field">
+                <label for="confirmar">Confirmar senha</label>
+                <input type="password" id="confirmar" name="confirmar" placeholder="Confirme sua senha" required>
+            </div>
+            <button type="submit">Criar conta</button>
+        </form>
+        <a href="/login" class="link">← Já tenho conta</a>
+    </div>
+</body>
+</html>
